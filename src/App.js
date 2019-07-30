@@ -7,10 +7,9 @@ function App() {
   const [users, setUsers] = useState([]);
   const [value, setValue] = useState([]);
 
-  const getUsers = () => {
 
+  const getUsers = () => {
     axios.get('http://localhost:7542/users').then(res => {
-      debugger
       setUsers(res.data);
     })
   };
@@ -19,8 +18,8 @@ function App() {
     getUsers();
   }, []);
 
-  let createUser = (e) => {
-    axios.post('http://localhost:7542/users').then( res => {
+  let createUser = (event) => {
+    axios.post('http://localhost:7542/users', {name: value}).then( res => {
       getUsers();
     })
   };
@@ -30,7 +29,7 @@ function App() {
   };
 
   return <div>
-    <input onChange={onChange}/>
+    <input onChange={onChange} value={value}/>
     <button onClick={createUser}>Create User</button>
       {users.map(u => <div>{u.name}</div>)}
     </div>
